@@ -30,7 +30,7 @@ router.post("/", auth,  (req, res) => {
 
 router.put("/:id", auth,  (req, res) => {
 
-    Task.updateOne({_id: req.params.id}, req.body)
+    Task.updateOne({_id: req.params.id, user: req.user._id}, req.body)
         .then(result => res.send(result))
         .catch((e) => res.send(e).status(500));
 
@@ -38,7 +38,8 @@ router.put("/:id", auth,  (req, res) => {
 
 router.delete("/:id", auth, (req, res) => {
 
-    Task.deleteOne({_id: req.params.id})
+
+    Task.deleteOne({_id: req.params.id, user: req.user._id})
         .then(result => res.send(result))
         .catch((e) => res.send(e).status(500));
 
